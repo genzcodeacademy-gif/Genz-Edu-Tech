@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "GenZ Edu Tech"
+description = "A premium public-facing education and career development website for GenZ Edu Tech, showcasing practical online courses, career guidance, freelancing support, and direct contact options."
+version = "1.0.0"
+id = "artifacts/genz-edutech"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25637
+
+[services.development]
+run = "pnpm --filter @workspace/genz-edutech run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/genz-edutech", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/genz-edutech/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25637"
+BASE_PATH = "/"
